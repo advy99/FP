@@ -7,6 +7,10 @@ private:
                                     // Herramientas -> Opciones del Compilador ->
                                     // Compilador -> Añadir las siguientes opciones
                                     // -Wl,--stack,26000000
+
+                                    // Entornos Unix -> Ejecutar:
+                                    //    ulimit -s 26000000
+                                    // Sobre el bash en el que se ejecuta el binario
    char vector_privado[TAMANIO];
    int total_utilizados;
 
@@ -162,6 +166,17 @@ public:
             vector_privado[i] = vector_privado[i+1];
 
          total_utilizados--;
+      }
+   }
+
+   void EliminaOcurrencias(char a_borrar){
+      int i = 0;
+
+      while(i < total_utilizados){
+         if(vector_privado[i] == a_borrar)
+            Elimina(i);
+         else
+            i++;
       }
    }
 
@@ -347,10 +362,19 @@ public:
 
 int main(){
    const char TERMINADOR = '#';
+   char elemento_a_eliminar;
    LectorSecuenciaCaracteres lector_secuencias(TERMINADOR);
    SecuenciaCaracteres secuencia;
 
    secuencia = lector_secuencias.Lee();
+
+   //Prueba para eliminar elemento;
+   cout << "Introduce un elemento a eliminar: ";
+   cin >> elemento_a_eliminar;
+
+   secuencia.EliminaOcurrencias(elemento_a_eliminar);
+
+   cout << "\nCadena con el elemento " << elemento_a_eliminar << " eliminado: \n" << secuencia.ToString() << "\n\n";
 
    /////////////////////////////////////////////////////////
    // Búsqueda de una sub-secuencia:
@@ -369,7 +393,8 @@ int main(){
    */
 
    // fedghcba#
-   secuencia.Ordena_por_Insercion_vs_directa();
+
+   secuencia.Ordena_por_Insercion();
    cout << secuencia.ToString();
 
    /////////////////////////////////////////////////////////
