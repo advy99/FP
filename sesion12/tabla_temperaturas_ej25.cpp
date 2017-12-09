@@ -75,5 +75,21 @@ public:
 };
 
 int main(){
+   TablaTemperaturas conjunto_ciudades;
+   MaximoTempEntreMinimos pos_max_entre_minimos;
+   double nueva_temp;
+
+   for(int i = 0; i < 10; i++){
+      for(int j = 0; j < 24; j++){
+         cin >> nueva_temp;
+         conjunto_ciudades.Modifica(i,j,nueva_temp);
+      }
+   }
+
+   pos_max_entre_minimos = conjunto_ciudades.MaxMinimos();
+
+   cout << "Ciudad: "      << pos_max_entre_minimos.fila << "\n"
+        << "Hora: "        << pos_max_entre_minimos.columna << "\n"
+        << "Temperatura: " << conjunto_ciudades.Valor(pos_max_entre_minimos.fila, pos_max_entre_minimos.columna) << "\n";
 
 }
