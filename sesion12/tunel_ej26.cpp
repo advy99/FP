@@ -255,6 +255,23 @@ public:
 
 
 class Tunel{
+private:
+  static const int MAX_VEHICULOS = 100;
+  double longitud_tunel;
+  string matriculas[MAX_VEHICULOS];
+  int entradas[MAX_VEHICULOS];
+  int salidas[MAX_VEHICULOS];
+public:
+  Tunel(double longitud)
+    :longitud_tunel(longitud)
+  {
+  }
+  void Entra(string matricula, int segundos_transcurridos){
+
+  }
+  void Sale(string matricula, int segundos_transcurridos){
+
+  }
 
 };
 
