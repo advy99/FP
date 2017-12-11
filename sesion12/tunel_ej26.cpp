@@ -261,18 +261,70 @@ private:
   string matriculas[MAX_VEHICULOS];
   int entradas[MAX_VEHICULOS];
   int salidas[MAX_VEHICULOS];
+  int num_vehiculos_registrados;
+
+  int PosVehiculoPorMatricula(string matricula){
+    bool encontrado = false;
+    int i = 0;
+
+    while(i <= num_vehiculos_registrados - 1 && !encontrado){
+      encontrado = matriculas[i] == matricula;
+    }
+
+    if(encontrado)
+      return i;
+    else
+      return -1;
+  }
 public:
-  Tunel(double longitud)
-    :longitud_tunel(longitud)
-  {
-  }
-  void Entra(string matricula, int segundos_transcurridos){
+   Tunel(double longitud)
+      :longitud_tunel(longitud),
+       num_vehiculos_registrados(0)
+   {
+      for(int i = 0; i < MAX_VEHICULOS; i++){
+         salidas[i] = -1;
+      }
+   }
+   void Entra(string matricula, int segundos_transcurridos){
+      matriculas[num_vehiculos_registrados] = matricula;
+      entradas[num_vehiculos_registrados] = segundos_transcurridos;
 
-  }
-  void Sale(string matricula, int segundos_transcurridos){
+      num_vehiculos_registrados++;
+   }
+   void Sale(string matricula, int segundos_transcurridos){
+      int pos_matricula;
+      pos_matricula = PosVehiculoPorMatricula(matricula);
 
-  }
 
+      if(pos_matricula != -1 && segundos_transcurridos >= entradas[pos_matricula])
+         salidas[pos_matricula] = segundos_transcurridos;
+   }
+   string Matricula(int vehiculo){
+      return matriculas[vehiculo];
+   }
+   int SegundosEnTunel(int vehiculo){
+      if(salidas[vehiculo] != -1){
+         return salidas[vehiculo] - entradas[vehiculo];
+      }
+      else{
+         return -1;
+      }
+   }
+   double Velocidad(int vehiculo){
+      int segundos_en_tunel = SegundosEnTunel(vehiculo);
+
+      if(segundos_en_tunel != -1){
+         Instante tiempo_en_tunel(segundos_en_tunel);
+
+         return longitud_tunel/tiempo_en_tunel.HorasTotalesDecimalTranscurridas();
+      }
+      else{
+         return -1;
+      }
+   }
+   int TotalEntradas(){
+      return num_vehiculos_registrados;
+   }
 };
 
 
@@ -281,17 +333,57 @@ int main(){
    const char ENTRADA = 'E';
    const char SALIDA  = 'S';
 
-   /*
-   COMPLETAR:
+   double longitud;
+   char tipo_movimiento;
+   string matricula;
+   double velocidad;
+   int total_segundos;
+   int hora, minuto, segundo;
 
-   Crear el túnel
+   cout << "Introduce la longitud del tunel en km: ";
+   cin >> longitud;
 
-   Ir leyendo datos y añadiendo vehículos al túnel
+   Tunel tunel(longitud);
+   Instante nuevo_instante(0);
+
+   cout << "Introduce el movimiento: ";
+   cin >> tipo_movimiento;
+
+
+   while(tipo_movimiento != FIN_ENTRADA_FICHERO){
+      cout << "\nIntrouce matricula: ";
+      cin >> matricula;
+      cout << "\nIntroduce un instante en h m s: ";
+      cin >> hora >> minuto >> segundo;
+
+      cout << hora << " " << minuto << " " << segundo;
+      nuevo_instante.SetHoraMinutoSegundo(hora,minuto,segundo);
+      total_segundos = nuevo_instante.SegundosTotalesEnterosTranscurridos();
+
+
+      if(tipo_movimiento == ENTRADA)
+         tunel.Entra(matricula, total_segundos);
+      if(tipo_movimiento == SALIDA)
+         tunel.Sale(matricula, total_segundos);
+
+      cout << "\nIntroduce el movimiento: ";
+      cin >> tipo_movimiento;
+   }
+
+   FormateadorDoubles mostrar_velocidad("","km",1);
 
    for (int i = 0; i < tunel.TotalEntradas(); i++){
-      Imprimir la matrícula del vehículo i
-      y su valocidad, en el caso de que haya salido
-      Si está dentro del túnel, imprima "No ha salido"
+      cout << "\nMatricula: \t" << tunel.Matricula(i);
+      cout << "\nVelocidad: \t";
+
+      velocidad = tunel.Velocidad(i);
+
+      if(velocidad == -1){
+         cout << "No ha salido del tunel\n";
+      }
+      else{
+         cout << mostrar_velocidad.GetCadena(velocidad) << "\n";
+      }
    }
-   */
+
 }
