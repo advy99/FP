@@ -266,15 +266,17 @@ private:
   int PosVehiculoPorMatricula(string matricula){
     bool encontrado = false;
     int i = 0;
+    int pos_encontrado = -1;
 
     while(i <= num_vehiculos_registrados - 1 && !encontrado){
-      encontrado = matriculas[i] == matricula;
+      if(matriculas[i] == matricula){
+         pos_encontrado = i;
+         encontrado = true;
+      }
+      i++;
     }
 
-    if(encontrado)
-      return i;
-    else
-      return -1;
+    return pos_encontrado;
   }
 public:
    Tunel(double longitud)
@@ -356,10 +358,8 @@ int main(){
       cout << "\nIntroduce un instante en h m s: ";
       cin >> hora >> minuto >> segundo;
 
-      cout << hora << " " << minuto << " " << segundo;
       nuevo_instante.SetHoraMinutoSegundo(hora,minuto,segundo);
       total_segundos = nuevo_instante.SegundosTotalesEnterosTranscurridos();
-
 
       if(tipo_movimiento == ENTRADA)
          tunel.Entra(matricula, total_segundos);
@@ -377,7 +377,7 @@ int main(){
       cout << "\nVelocidad: \t";
 
       velocidad = tunel.Velocidad(i);
-
+      
       if(velocidad == -1){
          cout << "No ha salido del tunel\n";
       }
