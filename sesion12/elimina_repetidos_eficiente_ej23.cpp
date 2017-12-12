@@ -368,7 +368,10 @@ int main(){
 
    secuencia = lector_secuencias.Lee();
 
+
    cout << secuencia.ToString();
+
+   cout << "\n\n------------NUEVA SECUENCIA---------------------\n\n";
 
    secuencia.EliminaRepetidos();
    cout << "\n" << secuencia.ToString() << "\n";
