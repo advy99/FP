@@ -1,15 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// Fundamentos de Programación
-// ETS Informática y Telecomunicaciones
-// Universidad de Granada
-// Departamento de Ciencias de la Computación e Inteligencia Artificial
-// Autor: Juan Carlos Cubero
-//
-//////////////////////////////////////////////////////////////////////////
-
-// Secuencia de caracteres
-
 #include <iostream>
 using namespace std;
 
