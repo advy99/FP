@@ -284,6 +284,8 @@ public:
        num_vehiculos_registrados(0)
    {
       for(int i = 0; i < MAX_VEHICULOS; i++){
+         matriculas[i] = "";
+         entradas[i] = -1;
          salidas[i] = -1;
       }
    }
@@ -377,7 +379,7 @@ int main(){
       cout << "\nVelocidad: \t";
 
       velocidad = tunel.Velocidad(i);
-      
+
       if(velocidad == -1){
          cout << "No ha salido del tunel\n";
       }
