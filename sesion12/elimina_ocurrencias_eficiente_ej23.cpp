@@ -177,12 +177,19 @@ public:
    }
 
    void EliminaRepetidos(){
-      int i = 0;
+      int pos_lectura = 0;
+      int pos_escritura = 0;
 
-      while(i < total_utilizados){
-         EliminaOcurrenciasAPartirDe(i + 1, vector_privado[i]);
-         i++;
+      while (pos_lectura < total_utilizados){
+         if ( pos_lectura == PrimeraOcurrencia(vector_privado[pos_lectura])){
+            vector_privado[pos_escritura] = vector_privado[pos_lectura];
+            pos_escritura++;
+         }
+
+         pos_lectura++;
       }
+      total_utilizados = total_utilizados - (pos_lectura - pos_escritura);
+
    }
 
    /////////////////////////////////////////////////////////////
