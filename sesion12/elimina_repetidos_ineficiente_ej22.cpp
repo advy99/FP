@@ -177,6 +177,25 @@ public:
       }
    }
 
+   void EliminaOcurrenciasAPartirDe(int posicion,char a_borrar){
+      int i = posicion;
+
+      while(i < total_utilizados){
+         if(vector_privado[i] == a_borrar)
+            Elimina(i);
+         else
+            i++;
+      }
+   }
+
+   void EliminaRepetidos(){
+      int i = 0;
+
+      while(i < total_utilizados){
+         EliminaOcurrenciasAPartirDe(i + 1, vector_privado[i]);
+         i++;
+      }
+   }
 
    /////////////////////////////////////////////////////////////
    // Algoritmos de ordenación
@@ -307,7 +326,7 @@ public:
          return posicion_contiene;
       else
          return -1;
-   
+
    }
 };
 
@@ -354,9 +373,10 @@ int main(){
 
    secuencia = lector_secuencias.Lee();
 
-
-   secuencia.Ordena_por_Insercion();
    cout << secuencia.ToString();
 
-   cout << "\n" << secuencia.ToString();
+   secuencia.EliminaRepetidos();
+   cout << "\n" << secuencia.ToString() << "\n";
+
+
 }
