@@ -27,6 +27,9 @@ public:
          centimos = centimos + centimos_a_ingresar % 100;
       }
    }
+   void Sumale(Dinero otra_cuenta){
+      Ingresar(otra_cuenta.Euros(),otra_cuenta.Centimos());
+   }
    int Euros(){
       return euros;
    }
@@ -36,8 +39,8 @@ public:
 };
 
 int main(){
-   Dinero cuenta_uno, cuenta_dos, cuenta_suma;
-   int euros, centimos, suma_euros, suma_centimos;
+   Dinero cuenta_uno, cuenta_dos;
+   int euros, centimos;
 
    cout << "Introuzca los euros de la cuenta 1:";
    cin >> euros;
@@ -52,10 +55,9 @@ int main(){
    cin >> centimos;
    cuenta_dos.Ingresar(euros, centimos);
 
-   suma_euros = cuenta_uno.Euros()+cuenta_dos.Euros();
-   suma_centimos = cuenta_uno.Centimos()+cuenta_dos.Centimos();
+   Dinero cuenta_suma(cuenta_uno);
 
-   cuenta_suma.Ingresar(suma_euros, suma_centimos);
+   cuenta_suma.Sumale(cuenta_dos);
 
    cout << "\nLa suma de las cuentas es \n\n" << cuenta_suma.Euros() << "\t" << cuenta_suma.Centimos();
 }
