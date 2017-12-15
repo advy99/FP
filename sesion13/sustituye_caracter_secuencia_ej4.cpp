@@ -153,6 +153,22 @@ public:
       }
    }
 
+   void InsertaSecuencia(int pos_insercion, SecuenciaCaracteres a_insertar){
+      int tam_a_insertar = a_insertar.TotalUtilizados();
+      int copia_total = total_utilizados;
+
+      if(tam_a_insertar + TotalUtilizados() < TAMANIO){
+         total_utilizados = total_utilizados + tam_a_insertar;
+         for(int i = total_utilizados - 1; i >= pos_insercion; i--){
+            vector_privado[i] = vector_privado[copia_total - 1];
+            copia_total--;
+         }
+         for(int i = 0; i < tam_a_insertar; i++){
+            vector_privado[i + pos_insercion] = a_insertar.Elemento(i);
+         }
+      }
+   }
+
    // Elimina una componente, dada por su posición
    void Elimina (int posicion){
       if (posicion >= 0 && posicion < total_utilizados){
@@ -326,14 +342,20 @@ public:
 
 
 int main(){
-   const char TERMINADOR = '#';
-   LectorSecuenciaCaracteres lector_secuencias(TERMINADOR);
-   SecuenciaCaracteres secuencia;
+   const char TERMINADOR_CARACTERES = '#';
+  SecuenciaCaracteres secuencia, a_insertar;
+  LectorSecuenciaCaracteres lector_secuencias(TERMINADOR_CARACTERES);
+  char a_sustituir;
+  int pos_insercion;
 
-   secuencia = lector_secuencias.Lee();
+  secuencia  = lector_secuencias.Lee();
+  a_insertar = lector_secuencias.Lee();
 
-   secuencia.Ordena_por_Insercion();
-   cout << secuencia.ToString();
+  // a_sustituir = cin.get();
+  // secuencia.Replace(a_sustituir, a_insertar);
 
-   cout << "\n" << secuencia.ToString();
+  cin >> pos_insercion;
+  secuencia.InsertaSecuencia(pos_insercion, a_insertar);
+
+  cout << "\nSecuencia nueva: " << secuencia.ToString();
 }
