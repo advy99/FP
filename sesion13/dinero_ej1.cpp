@@ -13,7 +13,10 @@ private:
       else
          return false;
    }
-
+   void PasarCentimosAEuros(){
+      euros = euros + (centimos / 100);
+      centimos = centimos % 100;
+   }
 public:
    Dinero()
       :euros(0),
@@ -23,8 +26,8 @@ public:
    void Ingresar(int euros_a_ingresar, int centimos_a_ingresar){
       if( CifraAIngresarCorrecta(euros_a_ingresar, centimos_a_ingresar) ){
          euros = euros + euros_a_ingresar;
-         euros = euros + (centimos_a_ingresar / 100);
-         centimos = centimos + centimos_a_ingresar % 100;
+         centimos = centimos + centimos_a_ingresar;
+         PasarCentimosAEuros();
       }
    }
    void Sumale(Dinero otra_cuenta){
