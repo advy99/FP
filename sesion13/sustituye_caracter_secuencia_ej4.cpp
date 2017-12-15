@@ -169,6 +169,21 @@ public:
       }
    }
 
+   void SustituyePorSecuencia(char a_sustituir, SecuenciaCaracteres sec_sustituta){
+      int i = 0;
+      while( i < total_utilizados ){
+
+         if(vector_privado[i] == a_sustituir){
+            Elimina(i);
+            InsertaSecuencia(i, sec_sustituta);
+            i = i + sec_sustituta.TotalUtilizados();
+         }
+         else{
+            i++;
+         }
+      }
+   }
+
    // Elimina una componente, dada por su posición
    void Elimina (int posicion){
       if (posicion >= 0 && posicion < total_utilizados){
@@ -343,19 +358,18 @@ public:
 
 int main(){
    const char TERMINADOR_CARACTERES = '#';
-  SecuenciaCaracteres secuencia, a_insertar;
+  SecuenciaCaracteres secuencia, sustituto;
   LectorSecuenciaCaracteres lector_secuencias(TERMINADOR_CARACTERES);
   char a_sustituir;
-  int pos_insercion;
 
   secuencia  = lector_secuencias.Lee();
-  a_insertar = lector_secuencias.Lee();
+  sustituto = lector_secuencias.Lee();
 
   // a_sustituir = cin.get();
   // secuencia.Replace(a_sustituir, a_insertar);
+  a_sustituir = cin.get();
 
-  cin >> pos_insercion;
-  secuencia.InsertaSecuencia(pos_insercion, a_insertar);
+  secuencia.SustituyePorSecuencia(a_sustituir, sustituto);
 
-  cout << "\nSecuencia nueva: " << secuencia.ToString();
+  cout << "\nSecuencia nueva: " << secuencia.ToString() << "\n";
 }
