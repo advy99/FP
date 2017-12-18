@@ -184,7 +184,22 @@ public:
 			return -1;
 		}
 	}
-   // DEFINA LOS MÉTODOS Aniade, Minimo, MaximoMinimos
+	ParFilacolumna MaximoMinimos(){
+		ParFilacolumna maximo_entre_minimos;
+		SecuenciaDoubles temp_minimas;
+      int minimos_por_fila[num_ciudades];
+
+      for (int i = 0; i < num_ciudades; i++){
+         minimos_por_fila[i] = Minimo(i);
+			temp_minimas.Aniade( temp[i].Elemento(minimos_por_fila[i]) );
+      }
+
+      maximo_entre_minimos.fila = temp_minimas.PosicionMaximo();
+      maximo_entre_minimos.columna = minimos_por_fila[maximo_entre_minimos.fila];
+
+      return maximo_entre_minimos;
+   }
+
 };
 
 
@@ -208,12 +223,14 @@ int main(){
 		}
 		
       // Añadir registro_temp_ciudad a la tabla
+		tabla_temperaturas.Aniade(registro_temp_ciudad);
       // Limpiar registro_temp_ciudad
+		registro_temp_ciudad.EliminaTodos();
       
    	cin >> num_temp;
    }
 
-   //pos_max_min = tabla_temperaturas.MaximoMinimos();
+   pos_max_min = tabla_temperaturas.MaximoMinimos();
 
 	cout << "\n\nMáximo de los mínimos:\nFila: " << pos_max_min.fila
         << "\nColumna: " << pos_max_min.columna
