@@ -168,16 +168,20 @@ public:
       else
          return NAN;  
    }
-	void AniadeCiudad(SecuenciaDoubles horas_nueva_ciudad){
+	void Aniade(SecuenciaDoubles horas_nueva_ciudad){
 		temp[num_ciudades] = horas_nueva_ciudad;
 		num_ciudades++;
+	}
+	void AniadeTempA(int ciudad, double nueva_temp){
+		if ( 0 <= ciudad && ciudad < num_ciudades)
+			temp[ciudad].Aniade(nueva_temp);
 	}
 	int Minimo(int ciudad){
 		if ( 0 <= ciudad && ciudad < num_ciudades){
 			return temp[ciudad].PosicionMinimo();
 		}
 		else{
-			return -1
+			return -1;
 		}
 	}
    // DEFINA LOS MÉTODOS Aniade, Minimo, MaximoMinimos
@@ -209,7 +213,7 @@ int main(){
    	cin >> num_temp;
    }
 
-   pos_max_min = tabla_temperaturas.MaximoMinimos();
+   //pos_max_min = tabla_temperaturas.MaximoMinimos();
 
 	cout << "\n\nMáximo de los mínimos:\nFila: " << pos_max_min.fila
         << "\nColumna: " << pos_max_min.columna
