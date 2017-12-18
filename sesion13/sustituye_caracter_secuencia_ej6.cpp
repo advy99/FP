@@ -203,31 +203,26 @@ public:
    // la misma comprobación inicial que se hace en la versión óptima
    // es decir, ver si total de caracteres a insertar menos los que
    // se eliminan, caben en el vector privado
-   void Replace(char a_eliminar, SecuenciaCaracteres sustituta){   
-
-      char copia[TAMANIO];
+   void Replace(char a_eliminar, SecuenciaCaracteres sustituta){
+      SecuenciaCaracteres copia;
       int utilizados_sustituta = sustituta.TotalUtilizados();
-      int utilizados_copia = 0;
+      int i = 0;
 
-      for (int i = 0; i < total_utilizados && utilizados_copia < TAMANIO; i++){
+      while( i < total_utilizados && copia.TotalUtilizados() < TAMANIO){
          if (vector_privado[i] == a_eliminar){
-            for (int j = 0 ;
-                 j < utilizados_sustituta && utilizados_copia < TAMANIO;
-                 j++){
-               copia[utilizados_copia] = sustituta.Elemento(j);
-               utilizados_copia++;
-            }
+            copia.InsertaSecuencia(copia.TotalUtilizados(), sustituta);
+
          }
          else{
-            copia[utilizados_copia] = vector_privado[i];
-            utilizados_copia++;
+            copia.Aniade(vector_privado[i]);
          }
+         i++;
       }
 
-      total_utilizados = utilizados_copia;
+      total_utilizados = copia.TotalUtilizados();
 
-      for (int i = 0; i < total_utilizados; i++)
-         vector_privado[i] = copia[i];
+      for (int i = 0; i < copia.TotalUtilizados(); i++)
+         vector_privado[i] = copia.Elemento(i);
    }
 
 
@@ -313,16 +308,13 @@ int main(){
    SecuenciaCaracteres secuencia, a_insertar;
    LectorSecuenciaCaracteres lector_secuencias(TERMINADOR_CARACTERES);
    char a_sustituir;
-   int pos_insercion;
 
    secuencia  = lector_secuencias.Lee();
    a_insertar = lector_secuencias.Lee();
 
-   // a_sustituir = cin.get();
-   // secuencia.Replace(a_sustituir, a_insertar);
+   a_sustituir = cin.get();
 
-   cin >> pos_insercion;
-   secuencia.InsertaSecuencia(pos_insercion, a_insertar);
+   secuencia.Replace(a_sustituir, a_insertar);
 
    cout << "\nSecuencia nueva: " << secuencia.ToString();
 
