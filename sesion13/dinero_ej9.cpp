@@ -23,6 +23,11 @@ public:
        centimos(0)
    {
    }
+	Dinero(int euros_ini, int centimos_ini)
+		:euros(euros_ini),
+		 centimos(centimos_ini)
+	{
+	}
    void Ingresar(int euros_a_ingresar, int centimos_a_ingresar){
       if( CifraAIngresarCorrecta(euros_a_ingresar, centimos_a_ingresar) ){
          euros = euros + euros_a_ingresar;
@@ -33,6 +38,12 @@ public:
    void Sumale(Dinero otra_cuenta){
       Ingresar(otra_cuenta.Euros(),otra_cuenta.Centimos());
    }
+	Dinero Suma(Dinero otra_cuenta){
+		Dinero suma_cuentas(euros, centimos);
+		suma_cuentas.Sumale(otra_cuenta);
+
+		return suma_cuentas;
+	}
    int Euros(){
       return euros;
    }
@@ -58,9 +69,9 @@ int main(){
    cin >> centimos;
    cuenta_dos.Ingresar(euros, centimos);
 
-   Dinero cuenta_suma(cuenta_uno);
+   Dinero cuenta_suma;
 
-   cuenta_suma.Sumale(cuenta_dos);
+   cuenta_suma = cuenta_uno.Suma(cuenta_dos);
 
    cout << "\nLa suma de las cuentas es \n\n" << cuenta_suma.Euros() << "\t" << cuenta_suma.Centimos();
 }
