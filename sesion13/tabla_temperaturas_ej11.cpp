@@ -172,7 +172,14 @@ public:
 		temp[num_ciudades] = horas_nueva_ciudad;
 		num_ciudades++;
 	}
-	
+	int Minimo(int ciudad){
+		if ( 0 <= ciudad && ciudad < num_ciudades){
+			return temp[ciudad].PosicionMinimo();
+		}
+		else{
+			return -1
+		}
+	}
    // DEFINA LOS MÉTODOS Aniade, Minimo, MaximoMinimos
 };
 
