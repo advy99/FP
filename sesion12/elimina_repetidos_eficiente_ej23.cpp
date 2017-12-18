@@ -366,7 +366,7 @@ int main(){
    LectorSecuenciaCaracteres lector_secuencias(TERMINADOR);
    SecuenciaCaracteres secuencia;
 
-   secuencia = lector_secuencias.Lee();
+   
 
 
    cout << secuencia.ToString();
