@@ -164,11 +164,15 @@ public:
    
    double Valor(int ciudad, int hora){
       if (IndicesCorrectos(ciudad, hora))
-         return  // COMPLETE LA LLAMADA
+         return  temp[ciudad].Elemento(hora);
       else
          return NAN;  
    }
-   
+	void AniadeCiudad(SecuenciaDoubles horas_nueva_ciudad){
+		temp[num_ciudades] = horas_nueva_ciudad;
+		num_ciudades++;
+	}
+	
    // DEFINA LOS MÉTODOS Aniade, Minimo, MaximoMinimos
 };
 
