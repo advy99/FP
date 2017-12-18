@@ -178,7 +178,9 @@ private:
 public:
    // Si vamos a crear vectores de VehiculoTunel y éstos contienen Instantes,
    // tenemos que proporcionar un constructor sin parámetros
-
+	Instante(){
+		SetHoraMinutoSegundo(0,0,0);
+	}
 
 
    Instante(int hora_instante, int minuto_instante, int segundo_instante){
@@ -389,36 +391,52 @@ public:
 
 
    int Indice(string matricula){
+		for(int i = 0; i < total_entradas; i++){
+			if (vehiculos[i].Matricula() == matricula)
+				return i;
+		}
+		return -1;
       // Busque el vehículo con la matrícula pasada como parámetro
       // y devuelva el índice que le corresponde
    }
 
    VehiculoTunel Vehiculo(int indice){
+		return vehiculos[indice];
       // Devuelve el vehículo indicado según su índice
    }
 
    void Entra(string matricula, Instante instante_entrada){
       // Construya un objeto de la clase VehiculoTunel
       // con los datos de los parámetros
+		VehiculoTunel nuevo_vehiculo;
+		nuevo_vehiculo.SetMatricula(matricula);
+		nuevo_vehiculo.SetInstanteEntrada(instante_entrada);
       // Añádalo al vector vehiculos
+		vehiculos[total_entradas] = nuevo_vehiculo;
+		total_entradas++;
    }
 
 
    void Sale(string matricula, Instante instante_salida){
       // Localice el vehículo con la matrícula indicada en el primer parámetro
       // y establezca el instante de salida indicado en el segundo parámetro
+		int pos_vehiculo_salida = Indice(matricula);
+		vehiculos[pos_vehiculo_salida].SetInstanteSalida(instante_salida);
    }
 
    bool HaSalido(int indice){
-      // Indique se el vehículo ha salido del túnel
+      return vehiculos[indice].InstanteSalida().SegundosTotalesEnterosTranscurridos() != 0;
    }
    
    double Velocidad(int indice){
       // Obtenga la velocidad del vehículo indicado
       // construyendo un objeto Instante como la diferencia
       // entre los instantes de salida y de entrada
+		Instante diferencia_entrada_salida(vehiculos[indice].InstanteSalida());
+		diferencia_entrada_salida.Restale(vehiculos[indice].InstanteEntrada());
       // Llame al método HorasTotalesDecimalTranscurridas()
       // de la clase Instante para calcular la velocidad.
+		return distancia_km/diferencia_entrada_salida.HorasTotalesDecimalTranscurridas();
    }
 };
 
