@@ -169,19 +169,34 @@ public:
       }
    }
 
-   void SustituyePorSecuencia(char a_sustituir, SecuenciaCaracteres sec_sustituta){
+   void SustituyePorSecuencia(char a_borrar, SecuenciaCaracteres sec_sustituta){
       int i = 0;
-      while( i < total_utilizados ){
+		int elemento_borrar = 0;
+		int fin_inicial = total_utilizados - 1;
+		int tam_cadena_sustitutos = sec_sustituta.TotalUtilizados();
 
-         if(vector_privado[i] == a_sustituir){
-            Elimina(i);
-            InsertaSecuencia(i, sec_sustituta);
-            i = i + sec_sustituta.TotalUtilizados();
-         }
-         else{
-            i++;
-         }
-      }
+		for (int i = 0; i < total_utilizados; i++){
+			if(vector_privado[i] == a_borrar){
+				elemento_borrar++;
+			}
+		}
+		total_utilizados = (elemento_borrar * tam_cadena_sustitutos) + total_utilizados - elemento_borrar;
+		i = total_utilizados  - 1;
+
+		while( i >= 0 ){
+			if(vector_privado[fin_inicial] != a_borrar){
+				vector_privado[i] = vector_privado[fin_inicial];
+				i--;
+				fin_inicial--;
+			}
+			else{
+				for(int k = tam_cadena_sustitutos - 1 ; k >=0; k--){
+					vector_privado[i] = sec_sustituta.Elemento(k);
+					i--;
+				}
+				fin_inicial--;
+			}
+		}
    }
 
    // Elimina una componente, dada por su posición
