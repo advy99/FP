@@ -7,3 +7,7 @@
 #Hacemos esto para ignorar a binarios sin extension, presentes debido a compilaciones
 *
 !*.*
+
+
+#Ignora archivos y carpetas ocultas
+\.*
