@@ -1,4 +1,5 @@
 //Programa para calcular el voltaje segun la ley de Ohm
+//2017-18
 
 #include <iostream>
 #include <cmath>
