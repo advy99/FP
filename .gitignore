@@ -1,9 +1,0 @@
-#Ignora archivos .txt y .zip
-*.txt
-*.zip
-
-
-#Ignora todos los archivos, y a la vez no ignora los que tengan una extension
-#Hacemos esto para ignorar a binarios sin extension, presentes debido a compilaciones
-#*
-#!*.*
