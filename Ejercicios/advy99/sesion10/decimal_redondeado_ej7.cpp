@@ -33,4 +33,6 @@ int main(){
    numero_redondeado = Redondea(numero, n_cifra_a_redondear);
 
    cout << "El numero redondeado es " << numero_redondeado;
+	
+   return (0);
 }
