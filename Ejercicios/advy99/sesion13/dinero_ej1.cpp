@@ -13,6 +13,7 @@ private:
       else
          return false;
    }
+    //Función que pasa de céntimos a euros
    void PasarCentimosAEuros(){
       euros = euros + (centimos / 100);
       centimos = centimos % 100;
